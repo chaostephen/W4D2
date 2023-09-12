@@ -1,7 +1,9 @@
 class Employee
     attr_reader :name, :salary, :title, :boss
     def initialize(name, salary, title, boss)
-        
+        if boss != nil
+            boss.add_employee(self)
+        end
         @name=name
         @title=title
         @salary=salary
@@ -20,8 +22,8 @@ class Employee
 end
 
 class Manager < Employee
-    attr_reader :name, :salary, :title, :boss
-    def initialize(name, salary, title, boss)
+    attr_reader :name, :salary, :title, :employees, :boss
+    def initialize(name, salary, title, employees, boss=nil)
         @employees=Array.new()
         super(name, salary, title, boss)
         
@@ -29,19 +31,17 @@ class Manager < Employee
     def add_employee(emp)
         @employees << emp
     end
-    
-  
-
-
 end
 
-p ned = Manager.new("Ned", 1000000, "Founder", nil)
-p darren = Manager.new("Darren", 78000, "TA Manager", ned)
-p shawna=Employee.new("Shawna",12000,"TA",darren)
-p david = Employee.new("David",10000,"TA",darren)
-darren.add_employee(ned)
+ned = Manager.new("Ned", 1000000, "Founder", nil)
+darren = Manager.new("Darren", 78000, "TA Manager", ned)
+shawna=Employee.new("Shawna",12000,"TA",darren)
+david = Employee.new("David",10000,"TA",darren)
+p darren.employees
 # shawna.add_employee(darren)
 # david.add_employee(darren)
+p ned.class #true
+# p david.is_manager? #false
 p ned.bonus(5)
 p darren.bonus(4)
 p david.bonus(3)
