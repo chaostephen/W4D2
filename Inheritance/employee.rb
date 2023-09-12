@@ -23,13 +23,22 @@ class Manager < Employee
     
     def bonus(multiplier)
         total = 0
-            
+        boss.each do |person|
+            total+=person.bonus(multiplier)
+        end
+        total 
     end
 
 
 end
 
 p ned = Manager.new("Ned", 1000000, "Founder", nil)
-p darren = Manager.new("Darren", 78000, "TA Manage", "Ned")
+p darren = Manager.new("Darren", 78000, "TA Manage", ned)
+p shawna=Employee.new("Shawna",12000,"TA",darren)
+p david = Employee.new("David",10000,"TA",darren)
 darren.boss = ned
-p darren
+shawna.boss=darren
+david.boss=darren
+p ned.bonus(5)
+p darren.bonus(4)
+p david.bonus(3)
