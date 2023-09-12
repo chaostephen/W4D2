@@ -13,13 +13,13 @@ class Employee
     def bonus(multiplier)
         bonus=self.salary * multiplier
     end
-    def bonuses(multiplier)
-        total = 0
-        boss.each do |person|
-            total+=person.bonus(multiplier)
-        end
-        total 
-    end
+    # def bonuses(multiplier)
+    #     total = 0
+    #     boss.each do |person|
+    #         total+=person.bonus(multiplier)
+    #     end
+    #     total 
+    # end
    
 end
 
@@ -39,7 +39,8 @@ class Manager < Employee
             i = 0
             while i < employees.length
             if employees[i].class == Manager
-                sum += employees[i].bonus(multiplier)
+                sum += employees[i].bonus(1)
+                sum += employees[i].salary
             else
                 sum += employees[i].salary
             end
