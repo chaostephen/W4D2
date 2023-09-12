@@ -1,3 +1,5 @@
+require_relative "PolyTreeNode"
+
 class Employee
     attr_reader :name, :salary, :title, :boss
     def initialize(name, salary, title, boss)
@@ -31,16 +33,32 @@ class Manager < Employee
     def add_employee(emp)
         @employees << emp
     end
+    def bonus(multiplier)
+        return nil if employees.empty?
+        sum = 0
+            i = 0
+            while i < employees.length
+            if employees[i].class == Manager
+                sum += employees[i].bonus(multiplier)
+            else
+                sum += employees[i].salary
+            end
+            i+=1
+        end
+        return sum * multiplier
+    end
+
 end
 
 ned = Manager.new("Ned", 1000000, "Founder", nil)
 darren = Manager.new("Darren", 78000, "TA Manager", ned)
 shawna=Employee.new("Shawna",12000,"TA",darren)
 david = Employee.new("David",10000,"TA",darren)
-p darren.employees
+ned.employees << darren
+ darren.employees
 # shawna.add_employee(darren)
 # david.add_employee(darren)
-p ned.class #true
+ned.class #true
 # p david.is_manager? #false
 p ned.bonus(5)
 p darren.bonus(4)
